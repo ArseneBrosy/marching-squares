@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Isometric</title>
+    <title>Marching Square</title>
 
     <link rel="stylesheet" href="./css/styles.css">
 </head>
@@ -14,9 +14,14 @@
     <div>
         <ul>
             <li>
-                <label for="wallValue">WALL_VALUE</label>
-                <input type="range" min="0" max="1" step="0.01" id="wallValue">
-                <p id="wallValueText">0.5</p>
+                <label for="wallValueTop">WALL_VALUE_TOP</label>
+                <input type="range" min="0" max="1" step="0.01" id="wallValueTop">
+                <p id="wallValueTopText">0.5</p>
+            </li>
+            <li>
+                <label for="wallValueBottom">WALL_VALUE_BOTTOM</label>
+                <input type="range" min="0" max="1" step="0.01" id="wallValueBottom">
+                <p id="wallValueBottomText">0.5</p>
             </li>
             <li>
                 <label for="noiseSize">NOISE_SIZE</label>

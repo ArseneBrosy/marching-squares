@@ -7,7 +7,8 @@ canvas.height = 1000;
 
 //region CONSTANTS
 const GRID_SIZE = 50;
-let WALL_VALUE = 0.5;
+let WALL_VALUE_TOP = 0.5;
+let WALL_VALUE_BOTTOM = 0.5
 let NOISE_SIZE = 0.1;
 
 const LINE_END_COORDS = [
@@ -70,10 +71,12 @@ function generateIntersections() {
 }
 
 function calculateLines(x, y) {
-    const a = intersections[y][x] > WALL_VALUE ? 1 : 0;
-    const b = intersections[y][x + 1] > WALL_VALUE ? 1 : 0;
-    const c = intersections[y + 1][x + 1] > WALL_VALUE ? 1 : 0;
-    const d = intersections[y + 1][x] > WALL_VALUE ? 1 : 0;
+    const wallValue1 = ((WALL_VALUE_BOTTOM - WALL_VALUE_TOP) * 100 * (y / GRID_SIZE) + WALL_VALUE_TOP * 100) / 100;
+    const wallValue2 = ((WALL_VALUE_BOTTOM - WALL_VALUE_TOP) * 100 * ((y + 1) / GRID_SIZE) + WALL_VALUE_TOP * 100) / 100;
+    const a = intersections[y][x] > wallValue1 ? 1 : 0;
+    const b = intersections[y][x + 1] > wallValue1 ? 1 : 0;
+    const c = intersections[y + 1][x + 1] > wallValue2 ? 1 : 0;
+    const d = intersections[y + 1][x] > wallValue2 ? 1 : 0;
     const caseIndex = a * 8 + b * 4 + c * 2 + d;
     return LINE_TABLE[caseIndex];
 }
@@ -120,9 +123,15 @@ noise.seed(Math.random());
 intersections = generateIntersections();
 draw();
 
-document.querySelector("#wallValue").addEventListener("input", (e) => {
-  document.querySelector("#wallValueText").innerText = document.querySelector("#wallValue").value;
-  WALL_VALUE = document.querySelector("#wallValue").value;
+document.querySelector("#wallValueTop").addEventListener("input", (e) => {
+  document.querySelector("#wallValueTopText").innerText = document.querySelector("#wallValueTop").value;
+  WALL_VALUE_TOP = document.querySelector("#wallValueTop").value;
+  draw();
+});
+
+document.querySelector("#wallValueBottom").addEventListener("input", (e) => {
+  document.querySelector("#wallValueBottomText").innerText = document.querySelector("#wallValueBottom").value;
+  WALL_VALUE_BOTTOM = document.querySelector("#wallValueBottom").value;
   draw();
 });
 
