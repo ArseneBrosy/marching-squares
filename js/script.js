@@ -132,3 +132,9 @@ document.querySelector("#noiseSize").addEventListener("input", (e) => {
   intersections = generateIntersections();
   draw();
 });
+
+document.querySelector("#regenerate").addEventListener("click", (e) => {
+  noise.seed(Math.random());
+  intersections = generateIntersections();
+  draw();
+});
