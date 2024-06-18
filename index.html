@@ -8,7 +8,24 @@
     <link rel="stylesheet" href="./css/styles.css">
 </head>
 <body oncontextmenu="return false;">
-    <canvas id="game"></canvas>
+    <div>
+        <canvas id="game"></canvas>
+    </div>
+    <div>
+        <ul>
+            <li>
+                <label for="wallValue">WALL_VALUE</label>
+                <input type="range" min="0" max="1" step="0.01" id="wallValue">
+                <p id="wallValueText">0.5</p>
+            </li>
+            <li>
+                <label for="noiseSize">NOISE_SIZE</label>
+                <input type="range" min="0" max="0.5" value="0.1" step="0.0001" id="noiseSize">
+                <p id="noiseSizeText">0.1</p>
+            </li>
+        </ul>
+    </div>
+
     <!--MAIN SCRIPT-->
     <script src="./js/perlin.js"></script>
     <script src="./js/script.js"></script>

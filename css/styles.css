@@ -15,8 +15,24 @@ body {
     align-items: center;
 }
 
+body > div {
+    margin: 0 20px;
+}
+
+li {
+    display: flex;
+}
+
+li input {
+    margin: 0 10px;
+}
+
+li p {
+    width: 50px;
+}
+
 canvas {
-    height: 95%;
+    height: 95vh;
     aspect-ratio: 1;
     border: 1px solid black;
 }

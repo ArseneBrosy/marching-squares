@@ -7,8 +7,8 @@ canvas.height = 1000;
 
 //region CONSTANTS
 const GRID_SIZE = 50;
-const WALL_VALUE = 0.5;
-const NOISE_SIZE = 0.1;
+let WALL_VALUE = 0.5;
+let NOISE_SIZE = 0.1;
 
 const LINE_END_COORDS = [
     {
@@ -86,6 +86,8 @@ function point(x, y, radius, color = "black"){
 }
 
 function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
     const cellSizeX = canvas.width / GRID_SIZE;
     const cellSizeY = canvas.height / GRID_SIZE;
 
@@ -117,3 +119,16 @@ function draw() {
 noise.seed(Math.random());
 intersections = generateIntersections();
 draw();
+
+document.querySelector("#wallValue").addEventListener("input", (e) => {
+  document.querySelector("#wallValueText").innerText = document.querySelector("#wallValue").value;
+  WALL_VALUE = document.querySelector("#wallValue").value;
+  draw();
+});
+
+document.querySelector("#noiseSize").addEventListener("input", (e) => {
+  document.querySelector("#noiseSizeText").innerText = document.querySelector("#noiseSize").value;
+  NOISE_SIZE = document.querySelector("#noiseSize").value;
+  intersections = generateIntersections();
+  draw();
+});
