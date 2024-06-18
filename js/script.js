@@ -7,6 +7,8 @@ canvas.height = 1000;
 
 //region CONSTANTS
 const GRID_SIZE = 50;
+const WALL_VALUE = 0.5;
+const NOISE_SIZE = 0.1;
 
 const LINE_END_COORDS = [
     {
@@ -52,7 +54,7 @@ let intersections = [[]];
 
 //region FUNCTIONS
 function calculateIntersection(x, y) {
-    return Math.floor(Math.random() * 2);
+    return (noise.simplex2(x * NOISE_SIZE, y * NOISE_SIZE) + 1) / 2;
 }
 
 function generateIntersections() {
@@ -68,10 +70,10 @@ function generateIntersections() {
 }
 
 function calculateLines(x, y) {
-    const a = intersections[y][x];
-    const b = intersections[y][x + 1];
-    const c = intersections[y + 1][x + 1];
-    const d = intersections[y + 1][x];
+    const a = intersections[y][x] > WALL_VALUE ? 1 : 0;
+    const b = intersections[y][x + 1] > WALL_VALUE ? 1 : 0;
+    const c = intersections[y + 1][x + 1] > WALL_VALUE ? 1 : 0;
+    const d = intersections[y + 1][x] > WALL_VALUE ? 1 : 0;
     const caseIndex = a * 8 + b * 4 + c * 2 + d;
     return LINE_TABLE[caseIndex];
 }
@@ -84,10 +86,6 @@ function point(x, y, radius, color = "black"){
 }
 
 function draw() {
-    // background
-    ctx.fillStyle = "grey";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
     const cellSizeX = canvas.width / GRID_SIZE;
     const cellSizeY = canvas.height / GRID_SIZE;
 
@@ -116,5 +114,6 @@ function draw() {
 }
 //endregion
 
+noise.seed(Math.random());
 intersections = generateIntersections();
 draw();
